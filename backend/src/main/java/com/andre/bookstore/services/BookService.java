@@ -28,8 +28,19 @@ public class BookService {
 
 	public List<BookDTO> findAll(Long id_category) {
 		categoryService.findById(id_category);
-
 		List<Book> list = bookRepository.findAllByCategory(id_category);
 		return list.stream().map((x) -> new BookDTO(x)).collect(Collectors.toList());
+	}
+
+	public Book update(Long id, Book book) {
+		Book newBook = findById(id);
+		updateData(newBook, book);
+		return bookRepository.save(newBook);
+	}
+
+	private void updateData(Book newBook, Book book) {
+		newBook.setName_author(book.getName_author());
+		newBook.setTitle(book.getTitle());
+		newBook.setText(book.getText());
 	}
 }
