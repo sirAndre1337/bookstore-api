@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.andre.bookstore.domain.Category;
@@ -21,28 +22,35 @@ public class CategoryService {
 	public Category findById(Long id) {
 
 		Optional<Category> category = categoryRepository.findById(id);
-		return category.orElseThrow(()-> new ObjectNotFoundException("Object not found! id: " + id + " Type: " + Category.class.getName()));
+		return category.orElseThrow(() -> new ObjectNotFoundException(
+				"Object not found! id: " + id + " Type: " + Category.class.getName()));
 	}
-	
+
 	public List<CategoryDTO> findAll() {
 		List<Category> list = categoryRepository.findAll();
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
-	
+
 	public Category save(Category category) {
-		category.setId(null); // Caso a categoria venha com id vai atualizar os dados, desse jeito e garantido que esse metodo so cria uma nova categoria.
+		category.setId(null); // Caso a categoria venha com id vai atualizar os dados, desse jeito e garantido
+								// que esse metodo so cria uma nova categoria.
 		return categoryRepository.save(category);
 	}
-	
-	public Category update(Long id , CategoryDTO categoryDTO) {
+
+	public Category update(Long id, CategoryDTO categoryDTO) {
 		Category category = findById(id);
 		category.setName(categoryDTO.getName());
 		category.setDescription(categoryDTO.getDescription());
 		return categoryRepository.save(category);
 	}
-	
+
 	public void delete(Long id) {
-		findById(id); // Como o metodo findById ja trata caso o ID nao exista , ja tem uma validacao personalizada.
-		categoryRepository.deleteById(id);
+		findById(id); // Como o metodo findById ja trata caso o ID nao exista , ja tem uma validacao
+						// personalizada.
+		try {
+			categoryRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new com.andre.bookstore.services.exceptions.DataIntegrityViolationException("Categoria nao pode ser deletada! possui livros associados");
+		}
 	}
 }
