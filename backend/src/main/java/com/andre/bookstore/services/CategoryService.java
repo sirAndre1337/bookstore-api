@@ -23,7 +23,7 @@ public class CategoryService {
 
 		Optional<Category> category = categoryRepository.findById(id);
 		return category.orElseThrow(() -> new ObjectNotFoundException(
-				"Object not found! id: " + id + " Type: " + Category.class.getName()));
+				"Category not found! id: " + id));
 	}
 
 	public List<CategoryDTO> findAll() {
