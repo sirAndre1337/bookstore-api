@@ -40,4 +40,9 @@ public class CategoryService {
 		category.setDescription(categoryDTO.getDescription());
 		return categoryRepository.save(category);
 	}
+	
+	public void delete(Long id) {
+		findById(id); // Como o metodo findById ja trata caso o ID nao exista , ja tem uma validacao personalizada.
+		categoryRepository.deleteById(id);
+	}
 }
