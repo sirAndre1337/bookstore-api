@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andre.bookstore.domain.Book;
+import com.andre.bookstore.domain.Category;
 import com.andre.bookstore.dtos.BookDTO;
 import com.andre.bookstore.repositories.BookRepository;
 import com.andre.bookstore.services.exceptions.ObjectNotFoundException;
@@ -42,5 +43,12 @@ public class BookService {
 		newBook.setName_author(book.getName_author());
 		newBook.setTitle(book.getTitle());
 		newBook.setText(book.getText());
+	}
+
+	public Book save(Book book , Long id_category) {
+		book.setId(null);
+		Category newCategory = categoryService.findById(id_category);
+		book.setCategory(newCategory);
+		return bookRepository.save(book);
 	}
 }
