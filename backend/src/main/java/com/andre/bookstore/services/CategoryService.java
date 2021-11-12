@@ -33,4 +33,11 @@ public class CategoryService {
 		category.setId(null); // Caso a categoria venha com id vai atualizar os dados, desse jeito e garantido que esse metodo so cria uma nova categoria.
 		return categoryRepository.save(category);
 	}
+	
+	public Category update(Long id , CategoryDTO categoryDTO) {
+		Category category = findById(id);
+		category.setName(categoryDTO.getName());
+		category.setDescription(categoryDTO.getDescription());
+		return categoryRepository.save(category);
+	}
 }
