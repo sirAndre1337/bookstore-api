@@ -28,4 +28,9 @@ public class CategoryService {
 		List<Category> list = categoryRepository.findAll();
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
+	
+	public Category save(Category category) {
+		category.setId(null); // Caso a categoria venha com id vai atualizar os dados, desse jeito e garantido que esse metodo so cria uma nova categoria.
+		return categoryRepository.save(category);
+	}
 }
