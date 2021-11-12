@@ -3,8 +3,11 @@ package com.andre.bookstore.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,7 @@ import com.andre.bookstore.domain.Category;
 import com.andre.bookstore.dtos.CategoryDTO;
 import com.andre.bookstore.services.CategoryService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/category")
 public class CategoryResource {
@@ -41,7 +45,7 @@ public class CategoryResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Category> saveNewCategory(@RequestBody Category category) {
+	public ResponseEntity<Category> saveNewCategory(@Valid @RequestBody Category category) {
 
 		category = categoryService.save(category);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(category.getId()).toUri();
@@ -49,7 +53,7 @@ public class CategoryResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id , @RequestBody CategoryDTO categoryDTO) {
+	public ResponseEntity<CategoryDTO> updateCategory(@Valid @PathVariable Long id , @RequestBody CategoryDTO categoryDTO) {
 		Category newCategory = categoryService.update(id , categoryDTO);
 		return ResponseEntity.ok().body(new CategoryDTO(newCategory));
 	}

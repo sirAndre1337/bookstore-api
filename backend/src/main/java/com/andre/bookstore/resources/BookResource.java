@@ -3,8 +3,11 @@ package com.andre.bookstore.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +24,7 @@ import com.andre.bookstore.domain.Book;
 import com.andre.bookstore.dtos.BookDTO;
 import com.andre.bookstore.services.BookService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/book")
 public class BookResource {
@@ -44,21 +48,21 @@ public class BookResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Book> update(@PathVariable Long id, @RequestBody Book book) {
+	public ResponseEntity<Book> update(@PathVariable Long id,@Valid @RequestBody Book book) {
 
 		Book newBook = bookService.update(id, book);
 		return ResponseEntity.ok().body(newBook);
 	}
 
 	@PatchMapping(value = "/{id}")
-	public ResponseEntity<Book> updatePatch(@PathVariable Long id, @RequestBody Book book) {
+	public ResponseEntity<Book> updatePatch(@PathVariable Long id,@Valid  @RequestBody Book book) {
 
 		Book newBook = bookService.update(id, book);
 		return ResponseEntity.ok().body(newBook);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Book> saveNewBook(@RequestParam(value = "category" , defaultValue = "0") Long id_category ,  @RequestBody Book book) {
+	public ResponseEntity<Book> saveNewBook(@RequestParam(value = "category" , defaultValue = "0") Long id_category ,@Valid @RequestBody Book book) {
 		
 		 book = bookService.save(book , id_category);
 		 URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("book/{id}").buildAndExpand(book.getId()).toUri();
