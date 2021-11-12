@@ -1,11 +1,14 @@
 package com.andre.bookstore.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andre.bookstore.domain.Category;
+import com.andre.bookstore.dtos.CategoryDTO;
 import com.andre.bookstore.repositories.CategoryRepository;
 import com.andre.bookstore.services.exceptions.ObjectNotFoundException;
 
@@ -19,5 +22,10 @@ public class CategoryService {
 
 		Optional<Category> category = categoryRepository.findById(id);
 		return category.orElseThrow(()-> new ObjectNotFoundException("Object not found! id: " + id + " Type: " + Category.class.getName()));
+	}
+	
+	public List<CategoryDTO> findAll() {
+		List<Category> list = categoryRepository.findAll();
+		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
 }
