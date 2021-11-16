@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Category implements Serializable{
 	@Length(min = 3, max = 200 , message = "O campo DESCRICAO deve ter entre 3 e 200 caracteres")
 	private String description;
 
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category" , fetch = FetchType.EAGER)
 	private List<Book> books = new ArrayList<Book>();
 
 	public Category() {
