@@ -1,0 +1,16 @@
+.container {
+  height: 85%;
+}
+
+i {
+  padding-right: 0.6rem;
+  padding-bottom: 0.2rem;
+}
+
+.sideBar {
+  background-color: darkgray;
+}
+
+.content {
+  background-color: dimgray;
+}
