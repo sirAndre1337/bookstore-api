@@ -22,3 +22,25 @@
 .table th,td {
   color: aliceblue;
 }
+
+button {
+  margin-bottom: .8rem;
+}
+
+.livros{
+  margin-left: .3rem;
+  color:blue
+}
+
+.edit {
+  color: yellow;
+}
+
+.delete{
+  color: red;
+  margin-left: .5rem;
+}
+
+.mat-header {
+  width: 5rem;
+}

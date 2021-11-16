@@ -10,7 +10,7 @@ import { CategoriaService } from "./categoria.service";
 export class CategoriaReadComponent implements OnInit {
   categorias: Categoria[] = [];
 
-  displayedColumns: string[] = ["id", "name", "description", "action"];
+  displayedColumns: string[] = ["id", "name", "description", "books" , "action"];
 
   constructor(private service: CategoriaService) {}
 
