@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { timeout } from "rxjs";
 import { Categoria } from "../categoria.model";
 import { CategoriaService } from "../categoria.service";
 
@@ -28,5 +29,17 @@ export class CategoriaReadComponent implements OnInit {
 
   navegarParaCategoriaCreate() {
     this.router.navigate(["categorias/create"]);
+  }
+
+  deleteCategory(id:String) {
+   this.service.delete(id).subscribe((resposta)=>{
+    this.router.navigate(["/"]);
+    this.service.mensagem("Categoria removida.")
+    setTimeout(()=>{
+      this.router.navigate(["categorias"]);
+    } , 1);
+   } , (err) =>{
+     this.service.mensagem(err.error.error);
+   })
   }
 }

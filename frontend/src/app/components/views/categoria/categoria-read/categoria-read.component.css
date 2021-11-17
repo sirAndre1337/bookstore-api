@@ -44,3 +44,7 @@ button {
 .mat-header {
   width: 5rem;
 }
+
+i {
+  cursor: pointer;
+}
