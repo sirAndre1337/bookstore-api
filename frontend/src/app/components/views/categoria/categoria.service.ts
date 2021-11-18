@@ -18,7 +18,17 @@ export class CategoriaService {
     return this.http.get<Categoria[]>(url);
   }
 
-  delete(id: String) : Observable<void> {
+  update(categoria: Categoria): Observable<void> {
+    const url = `${this.baseUrl}/category/${categoria.id}`;
+    return this.http.put<void>(url, categoria);
+  }
+
+  findById(id: String): Observable<Categoria> {
+    const url = `${this.baseUrl}/category/${id}`;
+    return this.http.get<Categoria>(url);
+  }
+
+  delete(id: String): Observable<void> {
     const url = `${this.baseUrl}/category/${id}`;
     return this.http.delete<void>(url);
   }

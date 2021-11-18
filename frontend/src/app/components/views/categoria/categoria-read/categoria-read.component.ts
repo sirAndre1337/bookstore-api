@@ -31,15 +31,18 @@ export class CategoriaReadComponent implements OnInit {
     this.router.navigate(["categorias/create"]);
   }
 
-  deleteCategory(id:String) {
-   this.service.delete(id).subscribe((resposta)=>{
-    this.router.navigate(["/"]);
-    this.service.mensagem("Categoria removida.")
-    setTimeout(()=>{
-      this.router.navigate(["categorias"]);
-    } , 1);
-   } , (err) =>{
-     this.service.mensagem(err.error.error);
-   })
+  deleteCategory(id: String) {
+    this.service.delete(id).subscribe(
+      (resposta) => {
+        this.router.navigate(["/"]);
+        this.service.mensagem("Categoria deleta com sucesso!");
+        setTimeout(() => {
+          this.router.navigate(["categorias"]);
+        }, 1);
+      },
+      (err) => {
+        this.service.mensagem(err.error.error);
+      }
+    );
   }
 }
