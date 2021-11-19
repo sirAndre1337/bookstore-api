@@ -23,6 +23,16 @@ export class LivroService {
     return this.http.post<Livro>(url, livro);
   }
 
+  findById(id_book: String): Observable<Livro> {
+    const url = `${this.baseUrl}/book/${id_book}`;
+    return this.http.get<Livro>(url);
+  }
+
+  update(livro: Livro): Observable<Livro> {
+    const url = `${this.baseUrl}/book/${livro.id}`;
+    return this.http.put<Livro>(url, livro);
+  }
+
   mensagem(str: String): void {
     this._snack.open(`${str}`, "OK", {
       horizontalPosition: "end",
