@@ -7,6 +7,10 @@
     Add Livro
   </button>
 
+  <button (click)="cancel()" class="mat-elevation-z8" mat-stroked-button color="accent">
+    Voltar para categorias
+  </button>
+
   <div class="mat-elevation-z8 content-table">
     <table mat-table [dataSource]="livros" class="table">
       <ng-container matColumnDef="id">
