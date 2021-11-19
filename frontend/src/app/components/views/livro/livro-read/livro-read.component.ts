@@ -35,6 +35,24 @@ export class LivroReadComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(["categorias"])
+    this.router.navigate(["categorias"]);
+  }
+
+  deletarLivro(id_livro: String): void {
+    this.service.delete(id_livro).subscribe(
+      () => {
+        this.router.navigate(["/"]);
+        this.service.mensagem("Livro deletado com sucesso!");
+        setTimeout(() => {
+          this.router.navigate([`categorias/${this.id_categoria}/livros`]);
+        }, 1);
+      },
+      (err) => {
+        this.router.navigate([`categorias/${this.id_categoria}/livros`]);
+        this.service.mensagem(
+          "Erro ao deletar o livro! motivo: " + err.error.error
+        );
+      }
+    );
   }
 }
