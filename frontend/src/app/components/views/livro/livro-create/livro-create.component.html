@@ -1,0 +1,66 @@
+<form action="">
+  <h1>Adicionar novo livro</h1>
+  <mat-form-field class="form">
+    <mat-label class="texto">Titulo:</mat-label>
+    <input
+      matInput
+      [(ngModel)]="livro.title"
+      [formControl]="titulo"
+      required
+      type="text"
+      name="titulo"
+      placeholder="Ex. Curso Spring Boot com Angular 10"
+      maxlength="100"
+    />
+    <mat-error *ngIf="titulo.invalid">
+      {{ getMessage() }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="form">
+    <mat-label class="texto">Nome do author:</mat-label>
+    <input
+      matInput
+      [(ngModel)]="livro.name_author"
+      [formControl]="nome_author"
+      required
+      type="text"
+      name="name_author"
+      placeholder="Ex. André Luis"
+      maxlength="100"
+    />
+    <mat-error *ngIf="nome_author.invalid">
+      {{ getMessage() }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="form">
+    <mat-label class="texto">Texto:</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="livro.text"
+      [formControl]="texto"
+      required
+      type="text"
+      name="texto"
+      placeholder="Ex. Lorem ipsum"
+      maxlength="2000000"
+      minlength="3"
+    ></textarea>
+    <mat-error *ngIf="texto.invalid">
+      {{ getMessage() }}
+    </mat-error>
+  </mat-form-field>
+  <div class="buttons">
+    <button
+      (click)="create()"
+      [disabled]="getMessage()"
+      class="mat-elevation-z8"
+      mat-stroked-button
+      color="primary"
+    >
+      Adicionar
+    </button>
+    <button class="mat-elevation-z8" mat-stroked-button color="warn">
+      Cancelar
+    </button>
+  </div>
+</form>
