@@ -1,0 +1,19 @@
+form {
+  width: 90%;
+  margin: auto;
+}
+
+.home {
+  margin: 1rem auto;
+  text-align: center;
+  background-color: black;
+  color: aliceblue;
+}
+
+button {
+  width: 100%;
+}
+
+.subtitle {
+  color: aliceblue;
+}
